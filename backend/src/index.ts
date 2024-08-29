@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { MongoDb } from "./mongodb"
+import { userRouter } from "./routes/user"
 
 
 const app = express()
@@ -12,6 +13,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     origin: "http://localhost:5173",
 }))
+
+app.use("/api", userRouter)
 
 
 app.listen(8080, () => console.log("server started"))
