@@ -48,3 +48,35 @@ export const signInController = async(req:Request , res:Response) => {
         return res.status(500).json({message: "Something went wrong"})
     }
 }
+
+
+export const uploadFileController =async(req:Request , res:Response) =>{
+    const {email , fileUrl} = req.body
+
+    try {
+
+        if(!email || !fileUrl){
+            return res.status(200).json({message: "All fields are required"})
+        }
+
+        const user = await User.findOneAndUpdate({email} , {fileUrl})
+        return res.status(201).json({message: "File uploaded successfully", user})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message: "Something went wrong"})
+    }
+}
+
+
+export const deleteFileController =async(req:Request , res:Response) =>{
+    const {email} = req.params
+
+    try {
+
+        const user = await User.findOneAndUpdate({email} , {fileUrl:""})
+        return res.status(200).json({message: "File deleted successfully", user})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message: "Something went wrong"})
+    }
+}

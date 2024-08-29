@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signInController = exports.signUpController = void 0;
+exports.deleteFileController = exports.uploadFileController = exports.signInController = exports.signUpController = void 0;
 const user_1 = require("../model/user");
 const signUpController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -52,3 +52,30 @@ const signInController = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 exports.signInController = signInController;
+const uploadFileController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, fileUrl } = req.body;
+    try {
+        if (!email || !fileUrl) {
+            return res.status(200).json({ message: "All fields are required" });
+        }
+        const user = yield user_1.User.findOneAndUpdate({ email }, { fileUrl });
+        return res.status(201).json({ message: "File uploaded successfully", user });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+});
+exports.uploadFileController = uploadFileController;
+const deleteFileController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    try {
+        const user = yield user_1.User.findOneAndUpdate({ email }, { fileUrl: "" });
+        return res.status(200).json({ message: "File deleted successfully", user });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+});
+exports.deleteFileController = deleteFileController;

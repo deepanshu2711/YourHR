@@ -19,11 +19,14 @@ const SignUp = () => {
     setError("");
     try {
       setLoading(true);
-      const responce = await axios.post("http://localhost:8080/api/signup", {
-        username,
-        password,
-        email,
-      });
+      const responce = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/signup`,
+        {
+          username,
+          password,
+          email,
+        }
+      );
       if (responce.status === 201) {
         setUser(responce.data.user);
         navigate("/");
@@ -41,7 +44,7 @@ const SignUp = () => {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
-      <div className="border p-5 flex flex-col gap-8 md: min-w-[400px] rounded-md shadow-sm">
+      <div className="border p-5 flex flex-col gap-8 min-w-[300px] md:min-w-[400px] rounded-md shadow-sm">
         <div className="flex flex-col">
           <p className="text-2xl font-semibold">Sign Up</p>
           <p className="text-gray-600 text-sm">Sign in to your account</p>

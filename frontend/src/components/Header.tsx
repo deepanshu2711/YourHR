@@ -9,7 +9,9 @@ const Header = ({ username }: { username: string }) => {
     <div className="flex items-center justify-between max-w-7xl mx-auto py-5">
       <p className="text-3xl font-bold text-purple-500">YourHR</p>
       <div className="flex items-center gap-2">
-        <p className="text-sm font-semibold text-gray-500">@{username}</p>
+        <p className="text-sm font-semibold text-gray-500 hidden md:block">
+          @{username}
+        </p>
         <img src="/user.png" className="h-8 w-8" />
         <button
           onClick={handleLogout}
