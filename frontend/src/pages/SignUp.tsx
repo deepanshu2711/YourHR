@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useUser } from "../providers/userProvider";
 
 const SignUp = () => {
   const [username, setUserName] = useState("");
@@ -10,6 +11,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { setUser } = useUser();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +25,7 @@ const SignUp = () => {
         email,
       });
       if (responce.status === 201) {
+        setUser(responce.data.user);
         navigate("/");
       }
       if (responce.status === 200) {

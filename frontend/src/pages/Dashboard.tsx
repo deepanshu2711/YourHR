@@ -1,17 +1,25 @@
 import { useRef } from "react";
 import Header from "../components/Header";
 import { FaFileUpload } from "react-icons/fa";
+import { useUser } from "../providers/userProvider";
+// import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user } = useUser();
+  // const navigate = useNavigate();
+
   const handleUploadFileClick = () => {
     if (inputRef.current) {
       inputRef.current.click();
     }
   };
+
+  console.log("User", user);
+
   return (
     <div className="h-[85vh]">
-      <Header />
+      <Header username={user?.username as string} />
       <div className="max-w-7xl mx-auto flex-1 h-full ">
         <div className="flex flex-col">
           <h2 className="text-2xl font-semibold text-gray-700">

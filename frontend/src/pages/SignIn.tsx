@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../providers/userProvider";
 
 const SignIn = () => {
   const [password, setPassword] = useState("");
@@ -9,6 +10,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { setUser } = useUser();
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const SignIn = () => {
         email,
       });
       if (responce.status === 201) {
+        setUser(responce.data.user);
         navigate("/");
       }
       if (responce.status === 200) {
