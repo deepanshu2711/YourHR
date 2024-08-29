@@ -17,7 +17,7 @@ const SignUp = () => {
           />
           <input
             type="text"
-            placeholder="Full Name"
+            placeholder="Username"
             className="p-2 border rounded-md"
           />
           <input
